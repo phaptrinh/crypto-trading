@@ -12,9 +12,9 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "price_history",
        indexes = {
-           @Index(name = "idx_price_trading_pair_timestamp", columnList = "trading_pair, timestamp"),
-           @Index(name = "idx_price_source_timestamp", columnList = "source, timestamp"),
-           @Index(name = "idx_price_timestamp", columnList = "timestamp")
+           @Index(name = "idx_price_history_timestamp", columnList = "timestamp"),
+           @Index(name = "idx_price_history_trading_pair", columnList = "trading_pair"),
+           @Index(name = "idx_price_history_source", columnList = "source")
        })
 @Data
 @NoArgsConstructor

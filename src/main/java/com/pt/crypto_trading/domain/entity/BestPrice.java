@@ -1,7 +1,7 @@
 package com.pt.crypto_trading.domain.entity;
 
-import com.pt.crypto_trading.domain.enums.TradingPair;
 import com.pt.crypto_trading.domain.enums.TradeType;
+import com.pt.crypto_trading.domain.enums.TradingPair;
 import com.pt.crypto_trading.integration.enums.PriceSource;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -56,8 +56,7 @@ public class BestPrice {
     public BestPrice(TradingPair tradingPair) {
         this.tradingPair = tradingPair;
     }
-    
-    // Business methods
+
     public BigDecimal getPriceForTradeType(TradeType tradeType) {
         return tradeType == TradeType.BUY ? bestAskPrice : bestBidPrice;
     }

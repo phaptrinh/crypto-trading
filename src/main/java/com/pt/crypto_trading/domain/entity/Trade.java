@@ -13,9 +13,12 @@ import java.time.LocalDateTime;
 @Table(name = "trades",
        indexes = {
            @Index(name = "idx_trade_user_created", columnList = "user_id, created_at"),
-           @Index(name = "idx_trade_trading_pair", columnList = "trading_pair"),
-           @Index(name = "idx_trade_status", columnList = "status"),
-           @Index(name = "idx_trade_created_at", columnList = "created_at")
+           @Index(name = "idx_trade_user_pair", columnList = "user_id, trading_pair"),
+           @Index(name = "idx_trade_user_type", columnList = "user_id, type"),
+           @Index(name = "idx_trade_user_status", columnList = "user_id, status"),
+           @Index(name = "idx_trade_user_pair_type", columnList = "user_id, trading_pair, type"),
+           @Index(name = "idx_trade_status_created", columnList = "status, created_at"),
+           @Index(name = "idx_trade_user_id_created", columnList = "user_id, id")
        })
 @Data
 @NoArgsConstructor

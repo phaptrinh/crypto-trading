@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDateTime;
 
 import com.pt.crypto_trading.domain.enums.Currency;
@@ -32,9 +33,6 @@ public class Wallet {
     @Column(precision = 18, scale = 8, nullable = false)
     private BigDecimal balance = BigDecimal.ZERO;
     
-    @Version
-    private Long version;
-    
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
     
@@ -59,14 +57,28 @@ public class Wallet {
     }
     
     public void addBalance(BigDecimal amount) {
-        this.balance = this.balance.add(amount);
+        if (amount == null || amount.compareTo(BigDecimal.ZERO) <= 0) {
+            throw new IllegalArgumentException("Amount must be positive and non-null");
+        }
+        
+        this.balance = this.balance.add(amount).setScale(8, RoundingMode.HALF_UP);
     }
-    
+
     public void subtractBalance(BigDecimal amount) {
-        this.balance = this.balance.subtract(amount);
+        if (amount == null || amount.compareTo(BigDecimal.ZERO) <= 0) {
+            throw new IllegalArgumentException("Amount must be positive and non-null");
+        }
+        if (!hasSufficientBalance(amount)) {
+            throw new IllegalArgumentException(
+                String.format("Insufficient balance. Required: %s, Available: %s", 
+                    amount.toPlainString(), this.balance.toPlainString()));
+        }
+        
+        this.balance = this.balance.subtract(amount).setScale(8, RoundingMode.HALF_UP);
     }
     
     public boolean hasSufficientBalance(BigDecimal amount) {
+        if (amount == null) return false;
         return this.balance.compareTo(amount) >= 0;
     }
 }

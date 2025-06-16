@@ -17,7 +17,4 @@ public enum TradeStatus {
         this.description = description;
     }
 
-    public boolean isTerminal() {
-        return this == COMPLETED || this == FAILED || this == CANCELLED;
-    }
 }

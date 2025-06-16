@@ -4,6 +4,7 @@ import lombok.Getter;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
+import java.util.List;
 
 @Getter
 public enum TradingPair {
@@ -27,5 +28,9 @@ public enum TradingPair {
             .filter(tp -> tp.symbol.equals(symbol))
             .findFirst()
             .orElseThrow(() -> new IllegalArgumentException("Unknown trading pair: " + symbol));
+    }
+
+    public static List<TradingPair> getAllValues() {
+        return List.of(values());
     }
 }

@@ -1,5 +1,8 @@
 package com.pt.crypto_trading.integration.enums;
 
+import lombok.Getter;
+
+@Getter
 public enum PriceSource {
     BINANCE("Binance", "https://api.binance.com/api/v3/ticker/bookTicker"),
     HUOBI("Huobi", "https://api.huobi.pro/market/tickers");
@@ -11,7 +14,5 @@ public enum PriceSource {
         this.name = name;
         this.apiUrl = apiUrl;
     }
-    
-    public String getName() { return name; }
-    public String getApiUrl() { return apiUrl; }
+
 }
